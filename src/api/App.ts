@@ -1,3 +1,4 @@
+import "dotenv/config";
 import Server from "./Server";
 
 export default class App {
