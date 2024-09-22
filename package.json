@@ -1,0 +1,30 @@
+{
+  "name": "vitruve-athlete-performance-api",
+  "version": "0.0.1",
+  "description": "An API for managing athlete data and their performance metrics.",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/METAWISER/vitruve-athlete-performance-api.git"
+  },
+  "keywords": [
+    "api",
+    "express",
+    "nodejs",
+    "typescript",
+    "auth",
+    "jwt",
+    "authentication",
+    "DDD",
+    "SOLID"
+  ],
+  "author": "Carlos Zamora - @metawiser",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/METAWISER/vitruve-athlete-performance-api/issues"
+  },
+  "homepage": "https://github.com/METAWISER/vitruve-athlete-performance-api#readme"
+}
