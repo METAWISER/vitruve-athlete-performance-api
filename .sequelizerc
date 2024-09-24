@@ -1,0 +1,8 @@
+const path = require('path');
+
+module.exports = {
+  'config': path.resolve('src/shared/infrastructure/persistense/postgres/config/config.json'),
+  'migrations-path': path.resolve('src/shared/infrastructure/persistense/postgres/migrations'),
+  'models-path': path.resolve('src/shared/infrastructure/persistense/postgres/models'),
+  'seeders-path': path.resolve('src/shared/infrastructure/persistense/postgres/seeders'),
+};
