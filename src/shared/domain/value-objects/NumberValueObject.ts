@@ -1,6 +1,6 @@
-export abstract class StringValueObject {
-  constructor(readonly value: string) {}
+export abstract class NumberValueObject {
+  constructor(readonly value: number) {}
   toString(): string {
-    return this.value;
+    return this.value.toString();
   }
 }

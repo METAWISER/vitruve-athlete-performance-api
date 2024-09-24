@@ -6,7 +6,7 @@ export class Uuid {
     value ? (this.value = value) : (this.value = uuidv4());
   }
 
-  toSting(): string {
+  toString(): string {
     return this.value;
   }
 }
