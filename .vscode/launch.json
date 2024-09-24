@@ -1,0 +1,18 @@
+{
+  "version": "0.2.0",
+  "configurations": [
+    {
+      "type": "node",
+      "request": "launch",
+      "name": "Debug Vitruve",
+      "skipFiles": ["<node_internals>/**"],
+      "program": "${workspaceFolder}/src/api/server.start.ts", 
+      "runtimeArgs": ["-r", "ts-node/register", "-r", "tsconfig-paths/register"],
+      "preLaunchTask": "npm: build",
+      "envFile": "${workspaceFolder}/.env",
+      "sourceMaps": true,
+      "outFiles": ["${workspaceFolder}dist/**/*.js"],
+      "console": "integratedTerminal"
+    },
+  ]
+}
