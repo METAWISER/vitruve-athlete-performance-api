@@ -11,8 +11,12 @@
     "start:features": "npm run test:backend:features",
     "test:backend:features": "set NODE_ENV=test&& cucumber-js -p backend",
     "build": "rimraf dist && tsc",
+    "node:dev": "set NODE_ENV=dev&& node dist/src/api/server.start.js",
     "dev": "set NODE_ENV=dev&& ts-node-dev --inspect --respawn --pretty --transpile-only src/api/server.start.ts",
-    "test:docker": "docker-compose up -d && npm run test:backend:features && docker-compose down"
+    "test:docker": "docker-compose up -d && npm run test:backend:features && docker-compose down",
+    "migration:create": "npx sequelize-cli migration:create --name",
+    "db:migrate": "npx sequelize-cli db:migrate",
+    "db:undo": "npx sequelize-cli db:migrate:undo"
   },
   "repository": {
     "type": "git",
@@ -43,6 +47,8 @@
     "@types/node": "^22.5.5",
     "awilix": "^11.0.0",
     "bcrypt": "^5.1.1",
+    "class-transformer": "^0.5.1",
+    "class-validator": "^0.14.1",
     "cors": "^2.8.5",
     "dotenv": "^16.4.5",
     "express": "^4.21.0",
@@ -51,11 +57,14 @@
     "jsonwebtoken": "^9.0.2",
     "morgan": "^1.10.0",
     "pg": "^8.13.0",
+    "sequelize": "^6.37.3",
+    "sequelize-cli": "^6.6.2",
     "ts-node": "^10.9.2",
     "ts-node-dev": "^2.0.0",
     "tsc-watch": "^6.2.0",
     "typescript": "^5.6.2",
-    "uuid": "^10.0.0"
+    "uuid": "^10.0.0",
+    "winston": "^3.14.2"
   },
   "devDependencies": {
     "@types/morgan": "^1.9.9",
@@ -67,6 +76,7 @@
     "eslint": "^9.11.0",
     "eslint-config-prettier": "^9.1.0",
     "eslint-plugin-prettier": "^5.2.1",
-    "prettier": "^3.3.3"
+    "prettier": "^3.3.3",
+    "tsconfig-paths": "^4.2.0"
   }
 }
