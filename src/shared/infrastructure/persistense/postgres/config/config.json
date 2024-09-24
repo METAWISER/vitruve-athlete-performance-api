@@ -1,0 +1,23 @@
+{
+  "development": {
+    "username": "athlete_user",
+    "password": "athlete_password",
+    "database": "vitruve_db",
+    "host": "localhost",
+    "dialect": "postgres"
+  },
+  "test": {
+    "username": "athlete_user",
+    "password": "athlete_password",
+    "database": "vitruve_db_test",
+    "host": "localhost",
+    "dialect": "postgres"
+  },
+  "production": {
+    "username": "athlete_user",
+    "password": "athlete_password",
+    "database": "vitruve_db",
+    "host": "localhost",
+    "dialect": "postgres"
+  }
+}
