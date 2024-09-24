@@ -1,8 +1,8 @@
-import { AthleteId } from "./AthleteId";
-import { AthleteName } from "./AthleteName";
-import { AthleteAge } from "./AthleteAge";
-import { AthleteEmail } from "./AthleteEmail";
-import { AthleteTeam } from "./AthleteTeam";
+import { AthleteId } from "./interfaces/AthleteId";
+import { AthleteName } from "./interfaces/AthleteName";
+import { AthleteAge } from "./interfaces/AthleteAge";
+import { AthleteEmail } from "./interfaces/AthleteEmail";
+import { AthleteTeam } from "./interfaces/AthleteTeam";
 
 export class Athlete {
   constructor(

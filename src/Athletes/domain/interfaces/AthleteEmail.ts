@@ -1,4 +1,4 @@
-import { StringValueObject } from "../../shared/domain/value-objects/StringValueObject";
+import { StringValueObject } from "../../../shared/domain/value-objects/StringValueObject";
 
 export class AthleteEmail implements StringValueObject {
   constructor(readonly value: string) {

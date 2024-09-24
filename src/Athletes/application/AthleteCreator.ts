@@ -1,11 +1,11 @@
 import { AthleteRepository } from "../infrastructure/AthleteRepository";
 import { AthleteCreatorDto } from "../../api/dtos/AthleteCreator.dto";
-import { AthleteName } from "../domain/AthleteName";
-import { AthleteAge } from "../domain/AthleteAge";
-import { AthleteId } from "../domain/AthleteId";
+import { AthleteName } from "../domain/interfaces/AthleteName";
+import { AthleteAge } from "../domain/interfaces/AthleteAge";
+import { AthleteId } from "../domain/interfaces/AthleteId";
 import { Athlete } from "../domain/Athlete";
-import { AthleteEmail } from "../domain/AthleteEmail";
-import { AthleteTeam } from "../domain/AthleteTeam";
+import { AthleteEmail } from "../domain/interfaces/AthleteEmail";
+import { AthleteTeam } from "../domain/interfaces/AthleteTeam";
 
 export class AthleteCreator {
     constructor(private repository: AthleteRepository) {}

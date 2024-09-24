@@ -1,7 +1,7 @@
-import { IAthleteRepository } from "../domain/IAthleteRepository";
+import { IAthleteRepository } from "../domain/interfaces/IAthleteRepository";
 import { Athlete } from "../domain/Athlete";
 import { AthleteInstance } from "./AthleteInstance";
-import { AthleteId } from "../domain/AthleteId";
+import { AthleteId } from "../domain/interfaces/AthleteId";
 
 export class AthleteRepository implements IAthleteRepository {
   constructor(readonly Model: typeof AthleteInstance) {}

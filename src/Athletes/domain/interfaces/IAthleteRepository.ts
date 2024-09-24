@@ -1,4 +1,4 @@
-import { Athlete } from "./Athlete";
+import { Athlete } from "../Athlete";
 import { AthleteId } from "./AthleteId";
 
 export interface IAthleteRepository {
