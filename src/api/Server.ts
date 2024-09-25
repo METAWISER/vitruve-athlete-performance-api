@@ -5,7 +5,7 @@ import morgan from "morgan";
 import HttpResponse from "../shared/infrastructure/response/HttpResponse";
 import { registerRoutes } from "./routes";
 import pgConnect from "../shared/infrastructure/persistense/config";
-
+import logger from "../shared/infrastructure/logger/logger";
 class Server {
   private readonly express: Application;
   private httpServer?: http.Server;
@@ -36,7 +36,7 @@ class Server {
   public async start(): Promise<void> {
     await new Promise<void>((resolve) => {
       this.httpServer = this.express.listen(this.port, () => {
-        console.log(`✅ Server running at http://localhost:${this.port}`);
+        logger.info(`✅ Server running at http://localhost:${this.port}`);
         resolve();
       });
     });
