@@ -29,7 +29,7 @@ export class ErrorHandler {
   private async handleAthleteAlreadyExistsError(error: DomainError, req: Request, res: Response) {
     const message = error.message || "Athlete already exists";
     const issue = this.createIssue(IssueLevel.WARN, message, req.url, 409);
-    logger.warn(`Athlete already exists: ${message} - Route: ${req.url}`);
+    logger.warn(`Athlete already registered with this email: ${message} - Route: ${req.url}`);
     await IssueService.logIssue(issue);
     this.httpResponse.Conflict(res, { error: message });
   }
