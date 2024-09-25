@@ -44,7 +44,7 @@ export class ErrorHandler {
 
   private async handleUnexpectedError(error: any, req: Request, res: Response) {
     const message = error.message || "Internal Server Error";
-    const issue = this.createIssue(IssueLevel.ERROR, message, req.url, 500); // Usar código 500 para errores inesperados
+    const issue = this.createIssue(IssueLevel.ERROR, message, req.url, 500);
     logger.error(`Unexpected error: ${message} - Route: ${req.url} - Stack: ${error.stack}`);
     await IssueService.logIssue(issue);
     this.httpResponse.InternalServerError(res, { error: "An unexpected error occurred" });
