@@ -3,13 +3,13 @@ import { AthleteCreator } from "../../../Athletes/application/AthleteCreator";
 import HttpResponse from "../../../shared/infrastructure/response/HttpResponse";
 import IController from "./IController";
 import { AthleteCreatorDto } from "../../dtos/AthleteCreator.dto";
-import { ErrorHandler } from "../../../shared/infrastructure/error/ErrorHandler"; // Importamos el ErrorHandler
+import { ErrorHandler } from "../../../shared/infrastructure/error/ErrorHandler";
 
 export class AthletePostController implements IController {
   constructor(
     private readonly athleteCreator: AthleteCreator,
     private readonly httpResponse: HttpResponse,
-    private readonly errorHandler: ErrorHandler // Inyectamos el ErrorHandler
+    private readonly errorHandler: ErrorHandler 
   ) {}
 
   async run(req: Request, res: Response, next: NextFunction): Promise<void> {
