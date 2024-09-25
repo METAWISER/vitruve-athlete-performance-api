@@ -2,6 +2,7 @@ import { IAthleteRepository } from "../domain/interfaces/IAthleteRepository";
 import { Athlete } from "../domain/Athlete";
 import { AthleteInstance } from "./AthleteInstance";
 import { AthleteId } from "../domain/interfaces/AthleteId";
+import { DomainError } from "../../shared/domain/errors/DomainError";
 
 export class AthleteRepository implements IAthleteRepository {
   constructor(readonly Model: typeof AthleteInstance) {}
@@ -15,7 +16,7 @@ export class AthleteRepository implements IAthleteRepository {
     throw new Error("Method not implemented.");
   }
   searchAll(): Promise<Athlete[]> {
-    throw new Error("Method not implemented.");
+    throw new DomainError("Method not implemented.");
   }
 
   async create(athlete: Athlete): Promise<void> {
@@ -24,7 +25,7 @@ export class AthleteRepository implements IAthleteRepository {
       where: { email: athletePrimitives.email }
     });
     if (athleteExists) {
-      throw new Error("Athlete already exists");
+      throw new DomainError("Athlete already exists");
     }
     await this.Model.create(athletePrimitives);
   }
