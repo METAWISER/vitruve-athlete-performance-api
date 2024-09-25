@@ -1,4 +1,4 @@
-import express, { Application, Request, Response, Router } from "express";
+import express, { Application, NextFunction, Request, Response, Router } from "express";
 import cors from "cors";
 import http from "http";
 import morgan from "morgan";
@@ -14,19 +14,27 @@ class Server {
     this.express = express();
     this.dbConnect();
     this.middlewares();
+    const apiVersion = "/api/v1";
     const router = Router();
-    this.express.use(router);
+    this.express.use(apiVersion, router);
     registerRoutes(router);
     router.use((err: Error, req: Request, res: Response) => {
       new HttpResponse().InternalServerError(res, "Contact admin");
     });
   }
-
+  
   private middlewares() {
     this.express.use(cors());
     this.express.use(express.json());
     this.express.use(express.urlencoded({ extended: true }));
     this.express.use(morgan("dev"));
+    this.express.use((req: Request, res: Response) => {
+      res.status(404).json({
+        status: 404,
+        message: "Not Found",
+        error: `The route ${req.originalUrl} does not exist.`
+      });
+    });
   }
 
   private async dbConnect() {
