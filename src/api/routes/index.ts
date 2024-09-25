@@ -1,9 +1,11 @@
 import { Request, Response, Router, NextFunction } from "express";
-import { validationResult } from "express-validator";
+import { plainToClass } from 'class-transformer';
 import * as glob from "glob";
 import * as path from "path";
 
 import HttpResponse from "../../shared/infrastructure/response/HttpResponse";
+import { AthleteCreatorDto } from "../dtos/AthleteCreator.dto";
+import { validate } from "class-validator";
 
 export function registerRoutes(router: Router): void {
   const normalizedDirname = path.normalize(__dirname).replace(/\\/g, "/");
@@ -24,16 +26,30 @@ function register(routePath: string, router: Router) {
   }
 }
 // eslint-disable-next-line @typescript-eslint/ban-types
-export function validateReqSchema(
-  req: Request,
-  res: Response,
-  next: NextFunction,
-): Response | void {
-  const validationErrors = validationResult(req);
-  if (validationErrors.isEmpty()) {
-    return next();
-  }
-  const errors = validationErrors.mapped();
+export async function validateReqSchema(req: Request, res: Response, next: NextFunction): Promise<Response | void> {
+  const dto = plainToClass(AthleteCreatorDto, req.body);
 
-  return new HttpResponse().UnprocessableEntity(res, errors);
+  if (!dto) {
+    return new HttpResponse().UnprocessableEntity(res, {
+      status: 422,
+      msg: "Invalid request body",
+    });
+  }
+
+  const errors = await validate(dto);
+
+  if (errors.length > 0) {
+    const validationErrors = errors.map(err => ({
+      property: err.property,
+      constraints: err.constraints,
+    }));
+
+    return new HttpResponse().UnprocessableEntity(res, {
+      status: 422,
+      msg: "Validation failed",
+      errors: validationErrors
+    });
+  }
+
+  next();
 }
