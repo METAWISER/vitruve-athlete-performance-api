@@ -21,6 +21,14 @@ class Server {
     router.use((err: Error, req: Request, res: Response) => {
       new HttpResponse().InternalServerError(res, "Contact admin");
     });
+    //TODO: Add 404 handler middleware
+    /* this.express.use((req: Request, res: Response, next: NextFunction) => {
+      res.status(404).json({
+        status: 404,
+        message: "Not Found",
+        error: `The route ${req.originalUrl} does not exist.`
+      });
+    }); */
   }
   
   private middlewares() {
@@ -28,13 +36,6 @@ class Server {
     this.express.use(express.json());
     this.express.use(express.urlencoded({ extended: true }));
     this.express.use(morgan("dev"));
-    this.express.use((req: Request, res: Response) => {
-      res.status(404).json({
-        status: 404,
-        message: "Not Found",
-        error: `The route ${req.originalUrl} does not exist.`
-      });
-    });
   }
 
   private async dbConnect() {
