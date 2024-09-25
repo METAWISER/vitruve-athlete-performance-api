@@ -16,6 +16,10 @@ IssueInstance.init(
       defaultValue: DataTypes.UUIDV4,
       primaryKey: true,
     },
+    level: {
+      type: DataTypes.STRING,
+      allowNull: false,
+    },
     message: {
       type: DataTypes.STRING,
       allowNull: false,
