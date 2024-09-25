@@ -16,7 +16,7 @@ export class AthleteRepository implements IAthleteRepository {
     throw new Error("Method not implemented.");
   }
   searchAll(): Promise<Athlete[]> {
-    throw new DomainError("Method not implemented.");
+    throw new Error("Method not implemented.");
   }
 
   async create(athlete: Athlete): Promise<void> {
@@ -25,7 +25,7 @@ export class AthleteRepository implements IAthleteRepository {
       where: { email: athletePrimitives.email }
     });
     if (athleteExists) {
-      throw new DomainError("Athlete already exists");
+      throw new DomainError("Athlete already registered with this email");
     }
     await this.Model.create(athletePrimitives);
   }
