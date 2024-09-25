@@ -1,4 +1,3 @@
-// src/api/Server.ts
 import express, { Application, Request, Response, Router } from "express";
 import cors from "cors";
 import http from "http";
