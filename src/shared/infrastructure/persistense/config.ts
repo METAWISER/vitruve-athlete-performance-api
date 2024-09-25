@@ -13,7 +13,6 @@ const pgConnect = async (): Promise<void> => {
   } catch (error) {
     console.error("❌ Failed to connect to the database:", error);
   } finally {
-    // Puedes elegir si cerrar la conexión aquí o mantenerla abierta dependiendo de tu uso
     await client.end();
   }
 };
