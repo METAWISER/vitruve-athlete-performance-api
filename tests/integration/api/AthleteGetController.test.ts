@@ -1,5 +1,5 @@
 import axios from 'axios';
-import App from '../../../../src/api/App';
+import App from '../../../src/api/App';
 
 describe('GET /api/v1/athletes', () => {
   let appInstance: App;
