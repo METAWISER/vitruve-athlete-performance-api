@@ -21,7 +21,7 @@ export class Athlete {
     team: string;
   }): Athlete {
     return new Athlete(
-      new AthleteId(),
+      new AthleteId(plainData.uid),
       new AthleteName(plainData.name),
       new AthleteAge(plainData.age),
       new AthleteEmail(plainData.email),
