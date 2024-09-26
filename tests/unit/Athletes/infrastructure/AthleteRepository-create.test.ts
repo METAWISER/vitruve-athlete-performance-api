@@ -49,7 +49,6 @@ describe('AthleteRepository - create', () => {
       team: 'Team A',
     });
 
-    // Verificar que se lanza un error si el atleta ya existe
     await expect(repository.create(athlete)).rejects.toThrow(DomainError);
     expect(AthleteInstance.create).not.toHaveBeenCalled();
   });
