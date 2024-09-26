@@ -1,6 +1,5 @@
 import { DataTypes, Model } from "sequelize";
 import  sequelize from "../../shared/infrastructure/persistense/postgres/sequelize.connect";
-// Definición del modelo para Athlete
 export class AthleteInstance extends Model {
   public id!: string;
   public name!: string;
