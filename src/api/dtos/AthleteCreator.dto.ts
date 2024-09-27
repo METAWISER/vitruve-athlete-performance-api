@@ -18,4 +18,8 @@ export class AthleteCreatorDto {
   @IsString()
   @IsNotEmpty()
   team!: string;
+
+  @IsString()
+  @MinLength(8)
+  password!: string;
 }
