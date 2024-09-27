@@ -21,8 +21,7 @@ export const register = (router: Router): void => {
   );
 
   router.post(
-    "/athletes",
-    validateReqSchema, 
+    "/athletes", 
     async (req: Request, res: Response, next: NextFunction) => {
       await athletePostController.run(req, res, next);
     }
