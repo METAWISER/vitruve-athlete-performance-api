@@ -13,7 +13,6 @@ export class AthletePostController implements IController {
   ) {}
 
   async run(req: Request, res: Response, next: NextFunction): Promise<void> {
-    console.log("Received request to create athlete", req.body);
     try {
       const athleteData: AthleteCreatorDto = req.body;
       await this.athleteCreator.run(athleteData);
