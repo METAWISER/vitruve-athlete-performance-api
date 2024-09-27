@@ -17,7 +17,7 @@ describe('AthleteRepository - findOne', () => {
       uid: 'some-uid',
       name: 'John Doe',
       age: 30,
-      email: 'john@example.com',
+      email: 'john@vitruve.com',
       team: 'Team A'
     };
 

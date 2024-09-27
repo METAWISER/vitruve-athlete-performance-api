@@ -2,6 +2,7 @@ import { AthleteGetterAll } from '../../../../src/Athletes/application/AthleteGe
 import { AthleteRepository } from '../../../../src/Athletes/infrastructure/AthleteRepository';
 import { Athlete } from '../../../../src/Athletes/domain/Athlete';
 import { AthleteEmail } from '../../../../src/Athletes/domain/interfaces/AthleteEmail';
+import { AthletePassword } from '../../../../src/Athletes/domain/interfaces/AthletePassword';
 
 describe('AthleteGetterAll', () => {
   let athleteGetterAll: AthleteGetterAll;
@@ -22,6 +23,7 @@ describe('AthleteGetterAll', () => {
         { value: 'John Doe' },
         { value: 30 },
         { value: 'email@vitruve.com' } as AthleteEmail,
+        { value: 'password' } as AthletePassword,
         { value: 'Team A' }
       ),
     ];

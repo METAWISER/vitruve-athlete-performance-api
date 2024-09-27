@@ -14,6 +14,7 @@ describe('AthleteCreator', () => {
       name: 'John Doe',
       age: 25,
       email: 'john.doe@vitruve.com',
+      password: 'password',
       team: 'Team A',
     };
 
