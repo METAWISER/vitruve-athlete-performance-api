@@ -1,9 +1,12 @@
 import { DataTypes, Model } from "sequelize";
-import  sequelize from "../../shared/infrastructure/persistense/postgres/sequelize.connect";
+import sequelize from "../../shared/infrastructure/persistense/postgres/sequelize.connect";
+
 export class AthleteInstance extends Model {
   public id!: string;
   public name!: string;
   public age!: number;
+  public email!: string;
+  public password!: string;
   public team!: string;
 }
 
@@ -23,6 +26,10 @@ AthleteInstance.init(
       allowNull: false,
     },
     email: {
+      type: DataTypes.STRING,
+      allowNull: false
+    },
+    password: {
       type: DataTypes.STRING,
       allowNull: false
     },
