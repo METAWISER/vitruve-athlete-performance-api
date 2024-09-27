@@ -11,7 +11,7 @@ export class AthleteRepository implements IAthleteRepository {
   }
   constructor(readonly Model: typeof AthleteInstance) {}
 
-  async findOne(uid: string): Promise<AthleteInstance> {
+  async findById(uid: string): Promise<AthleteInstance> {
     const athlete = await this.Model.findByPk(uid);
     if (!athlete) {
       throw new DomainError(`Athlete with ID ${uid} not found`);
@@ -19,8 +19,18 @@ export class AthleteRepository implements IAthleteRepository {
     
     return athlete;
   }
+
+  async findByEmail(email: string): Promise<Athlete> {
+    const athlete = await this.Model.findOne({ where: { email } });
+    if (!athlete) {
+      throw new DomainError(`Athlete with email ${email} not found`);
+    }
+    
+    return Athlete.fromPrimitives(athlete.toJSON());
+  }
+
   async update(uid: AthleteId, updateAthleteDto: AthleteUpdateDto): Promise<Athlete> {
-    const athlete = await this.findOne(uid.value);
+    const athlete = await this.findById(uid.value);
 
     if (updateAthleteDto.name) {
       updateAthleteDto.name = updateAthleteDto.name.toLowerCase();
