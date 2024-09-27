@@ -26,7 +26,7 @@ describe('AthleteRepository - findOne', () => {
     });
 
     const athleteId = new AthleteId('some-uid');
-    const result = await repository.findOne(athleteId.value);
+    const result = await repository.findById(athleteId.value);
 
     expect(AthleteInstance.findByPk).toHaveBeenCalledWith('some-uid');
     expect(result.toJSON()).toMatchObject(mockAthleteData);
@@ -37,7 +37,7 @@ describe('AthleteRepository - findOne', () => {
 
     const athleteId = new AthleteId('non-existing-uid');
 
-    await expect(repository.findOne(athleteId.value)).rejects.toThrow(
+    await expect(repository.findById(athleteId.value)).rejects.toThrow(
       new DomainError(`Athlete with ID ${athleteId.value} not found`)
     );
     expect(AthleteInstance.findByPk).toHaveBeenCalledWith('non-existing-uid');
