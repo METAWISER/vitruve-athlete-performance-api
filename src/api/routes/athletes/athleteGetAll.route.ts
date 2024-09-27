@@ -5,6 +5,7 @@ import { AthleteRepository } from "../../../Athletes/infrastructure/AthleteRepos
 import HttpResponse from "../../../shared/infrastructure/response/HttpResponse";
 import { ErrorHandler } from "../../../shared/infrastructure/error/ErrorHandler";
 import { AthleteGetterAll } from "../../../Athletes/application";
+import { validateJWT } from "../../middlewares/JwtMiddleware";
 
 export const register = (router: Router): void => {
   const athleteRepository = new AthleteRepository(AthleteInstance);
@@ -19,6 +20,7 @@ export const register = (router: Router): void => {
 
   router.get(
     "/athletes",
+    validateJWT,
     async (req: Request, res: Response, next: NextFunction) =>
       await athleteGetController.run(req, res, next)
   );
