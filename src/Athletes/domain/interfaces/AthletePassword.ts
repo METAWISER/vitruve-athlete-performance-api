@@ -1,6 +1,6 @@
-import { StringValueObject } from "../../../shared/domain/value-objects/StringValueObject";
+import { Bcrypt } from "../../../shared/domain/value-objects/Bcrypt";
 
-export class AthletePassword extends StringValueObject {
+export class AthletePassword extends Bcrypt{
   constructor(value: string) {
     super(value);
   }
