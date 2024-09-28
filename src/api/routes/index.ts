@@ -6,25 +6,41 @@ import * as path from "path";
 import HttpResponse from "../../shared/infrastructure/response/HttpResponse";
 import { AthleteCreatorDto } from "../dtos/AthleteCreator.dto";
 import { validate } from "class-validator";
+import { Hono } from "hono";
 
-export function registerRoutes(router: Router): void {
+type TRouter = Router | Hono;
+
+export function registerRoutes(router: TRouter): void {
   const normalizedDirname = path.normalize(__dirname).replace(/\\/g, "/");
   const routes = glob.sync(`${normalizedDirname}/**/*.route.*`);
-  routes.map((route) => register(route, router));
+
+  routes.forEach((route) => register(route, router));
 }
 
-function register(routePath: string, router: Router) {
-  // eslint-disable-next-line @typescript-eslint/no-var-requires, @typescript-eslint/no-require-imports
+function register(routePath: string, router: TRouter): void {
   const routeModule = require(routePath);
+
   if (typeof routeModule === "function") {
     routeModule(router);
   } else if (routeModule && typeof routeModule.register === "function") {
-    routeModule.register(router);
+    if (isExpressRouter(router)) {
+      routeModule.register(router);
+    } else if (isHonoRouter(router)) {
+      routeModule.register(router);
+    }
   } else {
-    // eslint-disable-next-line no-console
     console.error(`No register function found in module ${routePath}`);
   }
 }
+
+function isExpressRouter(router: TRouter): router is Router {
+  return typeof (router as Router).use === 'function';
+}
+
+function isHonoRouter(router: TRouter): router is Hono {
+  return typeof (router as Hono).route === 'function';
+}
+
 // eslint-disable-next-line @typescript-eslint/ban-types
 export async function validateReqSchema(req: Request, res: Response, next: NextFunction): Promise<Response | void> {
   const dto = plainToClass(AthleteCreatorDto, req.body);
