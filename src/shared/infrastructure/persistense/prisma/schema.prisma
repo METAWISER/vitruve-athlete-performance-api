@@ -1,0 +1,40 @@
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+model Athlete {
+  uid       String    @id @default(uuid())
+  name     String   
+  age      Int      
+  email    String    @unique 
+  password String   
+  team     String   
+  createdAt DateTime @default(now()) 
+  updatedAt DateTime @updatedAt 
+
+  @@map("athletes")
+}
+
+enum IssueLevel {
+  INFO
+  ERROR
+  WARN
+}
+
+model Issue {
+  id         String     @id @default(uuid())
+  level      IssueLevel 
+  message    String     
+  route      String     
+  statusCode Int        
+  timestamp  DateTime   @default(now())
+
+  @@index([statusCode], name: "status_code_idx")
+  @@index([level], name: "issue_level_idx")
+  @@map("issues")
+}
