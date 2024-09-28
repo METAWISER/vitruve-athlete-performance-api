@@ -13,9 +13,11 @@
     "build": "rimraf dist && tsc",
     "node:dev": "set NODE_ENV=dev&& node dist/src/api/server.start.js",
     "dev": "set NODE_ENV=dev&& ts-node-dev --inspect --respawn --pretty --transpile-only src/api/server.start.ts",
-    "migration:create": "npx sequelize-cli migration:create --name",
-    "db:migrate": "npx sequelize-cli db:migrate",
-    "db:undo": "npx sequelize-cli db:migrate:undo"
+    "prisma:generate": "prisma generate --schema=src/shared/infrastructure/persistense/prisma/schema.prisma",
+    "prisma:migrate": "prisma migrate dev --schema=src/shared/infrastructure/persistense/prisma/schema.prisma",
+    "sequelize:migration:create": "npx sequelize-cli migration:create --name",
+    "sequelize:db:migrate": "npx sequelize-cli db:migrate",
+    "sequelize:db:undo": "npx sequelize-cli db:migrate:undo"
   },
   "repository": {
     "type": "git",
@@ -39,6 +41,7 @@
   },
   "homepage": "https://github.com/METAWISER/vitruve-athlete-performance-api#readme",
   "dependencies": {
+    "@prisma/client": "^5.20.0",
     "awilix": "^11.0.0",
     "axios": "^1.7.7",
     "bcrypt": "^5.1.1",
@@ -78,6 +81,7 @@
     "eslint-plugin-prettier": "^5.2.1",
     "jest": "^29.7.0",
     "prettier": "^3.3.3",
+    "prisma": "^5.20.0",
     "ts-jest": "^29.2.5",
     "ts-node": "^10.9.2",
     "tsconfig-paths": "^4.2.0",
