@@ -1,4 +1,4 @@
-import { AthleteRepository } from "../../../../src/Athletes/infrastructure/AthleteRepository";
+import { AthleteRepository } from "../../../../src/Athletes/infrastructure/AthleteRepositorySequelize";
 import { AthleteInstance } from "../../../../src/Athletes/infrastructure/AthleteInstance";
 import { Athlete } from "../../../../src/Athletes/domain/Athlete";
 
