@@ -1,5 +1,6 @@
 import { Request, Response, NextFunction, Router } from "express";
-import { AthleteInstance } from "../../../Athletes/infrastructure/AthleteInstance";
+import { PrismaClient } from "@prisma/client";
+//import { AthleteInstance } from "../../../Athletes/infrastructure/AthleteInstance";
 import { AthleteGetController } from "../../controllers/athletes/AthleteGetController";
 import { AthleteRepository } from "../../../Athletes/infrastructure/AthleteRepository";
 import HttpResponse from "../../../shared/infrastructure/response/HttpResponse";
@@ -8,7 +9,9 @@ import { AthleteGetterAll } from "../../../Athletes/application";
 import { validateJWT } from "../../middlewares/JwtMiddleware";
 
 export const register = (router: Router): void => {
-  const athleteRepository = new AthleteRepository(AthleteInstance);
+  //Uncomment this line to use the sequelize AthleteRepository
+  //const athleteRepository = new AthleteRepository(AthleteInstance);
+  const athleteRepository = new AthleteRepository(new PrismaClient());
   const athleteFinder = new AthleteGetterAll(athleteRepository);
   const httpResponse = new HttpResponse();
   const errorHandler = new ErrorHandler();

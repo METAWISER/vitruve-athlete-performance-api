@@ -1,18 +1,25 @@
 import { Router, Request, Response } from "express";
+import { PrismaClient } from "@prisma/client";
 import { AuthController } from "../../controllers/athletes/AuthController";
 import HttpResponse from "../../../shared/infrastructure/response/HttpResponse";
 import { AuthService } from "../../../Athletes/application/AuthService";
 import { AthleteGetterByEmail } from "../../../Athletes/application/AthleteGetterByEmail";
 import { AthleteRepository } from "../../../Athletes/infrastructure/AthleteRepository";
-import { AthleteInstance } from "../../../Athletes/infrastructure/AthleteInstance";
+//import { AthleteInstance } from "../../../Athletes/infrastructure/AthleteInstance";
 
 export const register = (router: Router): void => {
   const jwtSecret = process.env.JWT_SECRET ?? "";
   const authService = new AuthService(jwtSecret);
-  const athleteRepository = new AthleteRepository(AthleteInstance); 
+  //Uncomment this line to use the sequelize AthleteRepository
+  //const athleteRepository = new AthleteRepository(AthleteInstance);
+  const athleteRepository = new AthleteRepository(new PrismaClient());
   const athleteGetterByEmail = new AthleteGetterByEmail(athleteRepository);
   const httpResponse = new HttpResponse();
-  const authController = new AuthController(authService, athleteGetterByEmail, httpResponse);
+  const authController = new AuthController(
+    authService,
+    athleteGetterByEmail,
+    httpResponse
+  );
 
   router.post("/login", async (req: Request, res: Response) => {
     await authController.login(req, res);
