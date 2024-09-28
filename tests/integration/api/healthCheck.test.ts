@@ -1,5 +1,5 @@
 import axios from 'axios';
-import Server from '../../../src/api/Server';
+import Server from '../../../src/api/ServerHono';
 
 describe('Health Check API', () => {
   let appInstance: Server;
@@ -17,7 +17,7 @@ describe('Health Check API', () => {
     const response = await axios.get('http://localhost:3001/api/v1/health');
     expect(response.status).toBe(200);
     expect(response.data).toMatchObject({
-      status: 'ok',
+      status: 'healthy',
     });
   }, 10000);
 });
