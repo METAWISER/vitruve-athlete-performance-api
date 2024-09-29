@@ -1,3 +1,4 @@
+import "dotenv/config";
 import { Hono } from "hono";
 import { serve } from "@hono/node-server";
 import { cors } from "hono/cors";
@@ -39,13 +40,12 @@ class Server {
       port: Number(this.port),
     });
     logger.info(`✅ Server is running on port ${this.port}`);
+    return new Promise(() => {}); 
   }
 
   public async close(): Promise<void> {
-    process.on("uncaughtException", () => {
-      process.exit(1);
-    });
     logger.info("Server is closing...");
+    process.exit(1);
   }
 }
 
