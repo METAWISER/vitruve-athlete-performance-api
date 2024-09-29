@@ -1,5 +1,6 @@
 import "dotenv/config";
-import Server from "./Server";
+import Server from "./ServerHono";
+// import Server from "./Server";
 
 export default class App {
   private server?: Server;
@@ -10,9 +11,10 @@ export default class App {
     await this.server.start();
   }
 
-  get httpServer(): Server["httpServer"] | undefined {
+  /* uncomment if you want to use express server 
+    get httpServer(): Server["httpServer"] | undefined {
     return this.server?.getHTTPServer();
-  }
+  } */
 
   public async close(): Promise<void> {
     return await this.server?.close();
