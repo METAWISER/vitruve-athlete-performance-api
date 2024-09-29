@@ -16,7 +16,7 @@ model Athlete {
   team     String   
   createdAt DateTime @default(now()) 
   updatedAt DateTime @updatedAt 
-
+  performanceMetrics PerformanceMetric[]
   @@map("athletes")
 }
 
@@ -37,4 +37,15 @@ model Issue {
   @@index([statusCode], name: "status_code_idx")
   @@index([level], name: "issue_level_idx")
   @@map("issues")
+}
+
+model PerformanceMetric {
+  id         String   @id @default(uuid())
+  athleteId  String 
+  athlete    Athlete  @relation(fields: [athleteId], references: [uid], onDelete: Cascade)
+  metricType String   
+  value      Float    
+  unit       String   
+  timestamp  DateTime @default(now()) 
+  @@map("performanceMetrics")
 }
