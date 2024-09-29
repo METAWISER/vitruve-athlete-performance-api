@@ -38,11 +38,14 @@ class HttpResponse {
 
   Created(res: TContext, data?: unknown): any {
     if (this.isHonoContext(res)) {
-      return res.json({
-        status: HttpStatus.CREATED,
-        msg: "Created",
-        data,
-      }, HttpStatus.CREATED);
+      return res.json(
+        {
+          status: HttpStatus.CREATED,
+          msg: "Created",
+          data,
+        },
+        HttpStatus.CREATED
+      );
     }
 
     if (this.isExpressResponse(res)) {
@@ -58,11 +61,14 @@ class HttpResponse {
 
   BadRequest(res: TContext, data?: unknown): any {
     if (this.isHonoContext(res)) {
-      return res.json({
-        status: HttpStatus.BAD_REQUEST,
-        msg: "Bad Request",
-        data,
-      }, HttpStatus.BAD_REQUEST);
+      return res.json(
+        {
+          status: HttpStatus.BAD_REQUEST,
+          msg: "Bad Request",
+          data,
+        },
+        HttpStatus.BAD_REQUEST
+      );
     }
 
     if (this.isExpressResponse(res)) {
@@ -78,11 +84,14 @@ class HttpResponse {
 
   Unauthorized(res: TContext, data?: unknown): any {
     if (this.isHonoContext(res)) {
-      return res.json({
-        status: HttpStatus.UNAUTHORIZED,
-        msg: "Unauthorized",
-        data,
-      }, HttpStatus.UNAUTHORIZED);
+      return res.json(
+        {
+          status: HttpStatus.UNAUTHORIZED,
+          msg: "Unauthorized",
+          data,
+        },
+        HttpStatus.UNAUTHORIZED
+      );
     }
 
     if (this.isExpressResponse(res)) {
@@ -98,11 +107,14 @@ class HttpResponse {
 
   Forbidden(res: TContext, data?: unknown): any {
     if (this.isHonoContext(res)) {
-      return res.json({
-        status: HttpStatus.FORBIDDEN,
-        msg: "Forbidden",
-        data,
-      }, HttpStatus.FORBIDDEN);
+      return res.json(
+        {
+          status: HttpStatus.FORBIDDEN,
+          msg: "Forbidden",
+          data,
+        },
+        HttpStatus.FORBIDDEN
+      );
     }
 
     if (this.isExpressResponse(res)) {
@@ -118,11 +130,14 @@ class HttpResponse {
 
   NotFound(res: TContext, data?: unknown): any {
     if (this.isHonoContext(res)) {
-      return res.json({
-        status: HttpStatus.NOT_FOUND,
-        msg: "Not Found",
-        data,
-      }, HttpStatus.NOT_FOUND);
+      return res.json(
+        {
+          status: HttpStatus.NOT_FOUND,
+          msg: "Not Found",
+          data,
+        },
+        HttpStatus.NOT_FOUND
+      );
     }
 
     if (this.isExpressResponse(res)) {
@@ -138,11 +153,14 @@ class HttpResponse {
 
   Conflict(res: TContext, data?: unknown): any {
     if (this.isHonoContext(res)) {
-      return res.json({
-        status: HttpStatus.CONFLICT,
-        msg: "Conflict",
-        data,
-      }, HttpStatus.CONFLICT);
+      return res.json(
+        {
+          status: HttpStatus.CONFLICT,
+          msg: "Conflict",
+          data,
+        },
+        HttpStatus.CONFLICT
+      );
     }
 
     if (this.isExpressResponse(res)) {
@@ -158,11 +176,14 @@ class HttpResponse {
 
   UnprocessableEntity(res: TContext, data?: unknown): any {
     if (this.isHonoContext(res)) {
-      return res.json({
-        status: HttpStatus.UNPROCESSABLE_ENTITY,
-        msg: "Unprocessable Entity",
-        data,
-      }, HttpStatus.UNPROCESSABLE_ENTITY);
+      return res.json(
+        {
+          status: HttpStatus.UNPROCESSABLE_ENTITY,
+          msg: "Unprocessable Entity",
+          data,
+        },
+        HttpStatus.UNPROCESSABLE_ENTITY
+      );
     }
 
     if (this.isExpressResponse(res)) {
@@ -178,11 +199,14 @@ class HttpResponse {
 
   GatewayTimeout(res: TContext, data?: unknown): any {
     if (this.isHonoContext(res)) {
-      return res.json({
-        status: HttpStatus.GATEWAY_TIMEOUT,
-        msg: "Gateway Timeout",
-        data,
-      }, HttpStatus.GATEWAY_TIMEOUT);
+      return res.json(
+        {
+          status: HttpStatus.GATEWAY_TIMEOUT,
+          msg: "Gateway Timeout",
+          data,
+        },
+        HttpStatus.GATEWAY_TIMEOUT
+      );
     }
 
     if (this.isExpressResponse(res)) {
@@ -198,11 +222,14 @@ class HttpResponse {
 
   TooManyRequests(res: TContext, data?: unknown): any {
     if (this.isHonoContext(res)) {
-      return res.json({
-        status: HttpStatus.TOO_MANY_REQUESTS,
-        msg: "Too Many Requests",
-        data,
-      }, HttpStatus.TOO_MANY_REQUESTS);
+      return res.json(
+        {
+          status: HttpStatus.TOO_MANY_REQUESTS,
+          msg: "Too Many Requests",
+          data,
+        },
+        HttpStatus.TOO_MANY_REQUESTS
+      );
     }
 
     if (this.isExpressResponse(res)) {
@@ -218,11 +245,14 @@ class HttpResponse {
 
   ServiceUnavailable(res: TContext, data?: unknown): any {
     if (this.isHonoContext(res)) {
-      return res.json({
-        status: HttpStatus.SERVICE_UNAVAILABLE,
-        msg: "Service Unavailable",
-        data,
-      }, HttpStatus.SERVICE_UNAVAILABLE);
+      return res.json(
+        {
+          status: HttpStatus.SERVICE_UNAVAILABLE,
+          msg: "Service Unavailable",
+          data,
+        },
+        HttpStatus.SERVICE_UNAVAILABLE
+      );
     }
 
     if (this.isExpressResponse(res)) {
@@ -238,11 +268,14 @@ class HttpResponse {
 
   InternalServerError(res: TContext, data?: unknown): any {
     if (this.isHonoContext(res)) {
-      return res.json({
-        status: HttpStatus.INTERNAL_SERVER_ERROR,
-        msg: "Internal Server Error",
-        data,
-      }, HttpStatus.INTERNAL_SERVER_ERROR);
+      return res.json(
+        {
+          status: HttpStatus.INTERNAL_SERVER_ERROR,
+          msg: "Internal Server Error",
+          data,
+        },
+        HttpStatus.INTERNAL_SERVER_ERROR
+      );
     }
 
     if (this.isExpressResponse(res)) {
@@ -252,6 +285,7 @@ class HttpResponse {
         data,
       });
     }
+    throw new Error("Unknown response type");
   }
 }
 
