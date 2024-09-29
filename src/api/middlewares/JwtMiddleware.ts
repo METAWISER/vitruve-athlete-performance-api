@@ -1,3 +1,4 @@
+import "dotenv/config";
 import { Context } from 'hono';
 import jwt from 'jsonwebtoken';
 import HttpResponse from '../../shared/infrastructure/response/HttpResponse';
