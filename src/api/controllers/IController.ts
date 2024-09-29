@@ -1,5 +1,5 @@
-import { NextFunction, Request, Response } from "express";
+import { Context } from "hono";
 
 export default interface Controller {
-	run(req: Request, res: Response, next: NextFunction): Promise<void> | void;
+	run(c: Context): Promise<Response> | void;
 }
