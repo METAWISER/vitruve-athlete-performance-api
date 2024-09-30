@@ -1,25 +1,28 @@
-import { Response } from 'express';
-import HttpResponse from '../../../../src/shared/infrastructure/response/HttpResponse';
+import { Context } from "hono";
+import HttpResponse from "../../../../src/shared/infrastructure/response/HttpResponse";
+import { HttpStatus } from "../../../../src/shared/domain/HttpStatus";
 
-describe('HttpResponse', () => {
-  let res: Partial<Response>;
+describe("HttpResponse", () => {
+  let c: Partial<Context>;
 
   beforeEach(() => {
-    res = {
+    c = {
       status: jest.fn().mockReturnThis(),
       json: jest.fn().mockReturnThis(),
     };
   });
 
-  it('should return a 200 OK response', () => {
+  it("should return a 200 OK response with Hono context", () => {
     const httpResponse = new HttpResponse();
-    httpResponse.Ok(res as Response, { message: 'Success' });
+    httpResponse.Ok(c as Context, { message: "Success" });
 
-    expect(res.status).toHaveBeenCalledWith(200);
-    expect(res.json).toHaveBeenCalledWith({
-      status: 200,
-      msg: 'Success',
-      data: { message: 'Success' },
-    });
+    expect(c.json).toHaveBeenCalledWith(
+      {
+        status: HttpStatus.OK,
+        msg: "Success",
+        data: { message: "Success" },
+      },
+      HttpStatus.OK
+    );
   });
 });
