@@ -30,10 +30,15 @@ describe('AthleteGetterAll', () => {
 
     athleteRepositoryMock.searchAll.mockResolvedValue(mockAthletes);
 
+    const expectedAthletes = mockAthletes.map(athlete => {
+      const { password, ...athleteWithoutPassword } = athlete;
+      return athleteWithoutPassword;
+    });
+
     const result = await athleteGetterAll.run();
 
     expect(athleteRepositoryMock.searchAll).toHaveBeenCalledTimes(1);
-    expect(result).toEqual(mockAthletes);
+    expect(result).toEqual(expectedAthletes);
   });
 
   it('should return an empty array if no athletes are found', async () => {
