@@ -37,4 +37,9 @@ export class MetricsRepository {
     );
   }
 
+  async deleteMetricsByAthlete(athleteId: AthleteId): Promise<void> {
+    await this.prisma.performanceMetric.deleteMany({
+      where: { athleteId: athleteId.value },
+    });
+  }
 }
