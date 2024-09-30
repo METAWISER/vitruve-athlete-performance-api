@@ -2,12 +2,14 @@ import "dotenv/config";
 import { Hono } from "hono";
 import { serve } from "@hono/node-server";
 import { cors } from "hono/cors";
+import http from 'http';
 import pgConnect from "../shared/infrastructure/persistense/config";
 import logger from "../shared/infrastructure/logger/logger";
 import { registerRoutes } from "./routes";
 
 class Server {
   private readonly honoApp: Hono;
+  private server?: http.Server;
 
   constructor(private readonly port: string) {
     this.honoApp = new Hono();
@@ -44,8 +46,23 @@ class Server {
   }
 
   public async close(): Promise<void> {
-    logger.info("Server is closing...");
-    process.exit(1);
+    if (!this.server) {
+      logger.error('❌ Server is not running');
+      return;
+    }
+
+    return new Promise((resolve, reject) => {
+      this.server!.close((err) => {
+        if (err) {
+          logger.error('❌ Error while closing the server', err);
+          reject(err);
+          return;
+        }
+
+        logger.info('❌ Server is closed');
+        resolve();
+      });
+    });
   }
 }
 
