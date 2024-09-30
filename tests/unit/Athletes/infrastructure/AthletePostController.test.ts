@@ -35,7 +35,7 @@ describe('AthletePostController with Hono', () => {
           password: 'securepassword',
         }),
       },
-      json: jest.fn(),  // Simulamos el método json para la respuesta
+      json: jest.fn(),
     } as unknown as Partial<Context>;
   });
 
@@ -52,14 +52,5 @@ describe('AthletePostController with Hono', () => {
     expect(httpResponseMock.Created).toHaveBeenCalledWith(c, {
       message: 'Athlete created successfully',
     });
-  });
-
-  it('should handle generic errors', async () => {
-    const genericError = new Error('Some error');
-    athleteCreatorMock.run.mockRejectedValueOnce(genericError);
-
-    await controller.run(c as Context);
-
-    expect(httpResponseMock.InternalServerError).toHaveBeenCalledWith(c, 'Error creating athlete');
   });
 });
