@@ -1,19 +1,13 @@
-/* import { Request, Response, NextFunction } from 'express';
-TODO: Create AthletePostController
-import { } from '../../../../src/api/controllers/athletes/express-controllers/';
+import { Context } from 'hono';
+import { AthletePostController } from '../../../../src/api/controllers/athletes/AthletePostController';
 import { AthleteCreator } from '../../../../src/Athletes/application/index';
 import HttpResponse from '../../../../src/shared/infrastructure/response/HttpResponse';
-import { ErrorHandler } from '../../../../src/shared/infrastructure/error/ErrorHandler';
-import { AthleteCreatorDto } from '../../../../src/api/dtos/AthleteCreator.dto';
 
-describe('AthletePostController', () => {
+describe('AthletePostController with Hono', () => {
   let athleteCreatorMock: jest.Mocked<AthleteCreator>;
   let httpResponseMock: jest.Mocked<HttpResponse>;
-  let errorHandlerMock: jest.Mocked<ErrorHandler>;
   let controller: AthletePostController;
-  let req: Partial<Request>;
-  let res: Partial<Response>;
-  let next: NextFunction;
+  let c: Partial<Context>;
 
   beforeEach(() => {
     athleteCreatorMock = {
@@ -22,58 +16,50 @@ describe('AthletePostController', () => {
 
     httpResponseMock = {
       Created: jest.fn(),
+      Conflict: jest.fn(),
+      InternalServerError: jest.fn(),
     } as unknown as jest.Mocked<HttpResponse>;
-
-    errorHandlerMock = {
-      handleError: jest.fn(),
-    } as unknown as jest.Mocked<ErrorHandler>;
 
     controller = new AthletePostController(
       athleteCreatorMock,
-      httpResponseMock,
-      errorHandlerMock
+      httpResponseMock
     );
 
-    req = {
-      body: {
-        name: 'John Doe',
-        age: 30,
-        email: 'john@example.com',
-        team: 'Team A',
-      } as AthleteCreatorDto,
-    };
-
-    res = {
-      status: jest.fn().mockReturnThis(),
-      json: jest.fn(),
-    };
-
-    next = jest.fn();
+    c = {
+      req: {
+        json: jest.fn().mockResolvedValue({
+          name: 'John Doe',
+          age: 30,
+          email: 'john@vitruve.com',
+          team: 'Team A',
+          password: 'securepassword',
+        }),
+      },
+      json: jest.fn(),  // Simulamos el método json para la respuesta
+    } as unknown as Partial<Context>;
   });
 
   it('should create an athlete successfully', async () => {
-    await controller.run(req as Request, res as Response, next);
+    await controller.run(c as Context);
 
-
-    expect(athleteCreatorMock.run).toHaveBeenCalledWith(req.body);
-    expect(httpResponseMock.Created).toHaveBeenCalledWith(res, {
+    expect(athleteCreatorMock.run).toHaveBeenCalledWith({
+      name: 'John Doe',
+      age: 30,
+      email: 'john@vitruve.com',
+      team: 'Team A',
+      password: 'securepassword',
+    });
+    expect(httpResponseMock.Created).toHaveBeenCalledWith(c, {
       message: 'Athlete created successfully',
     });
-    expect(errorHandlerMock.handleError).not.toHaveBeenCalled();
   });
 
-  it('should handle errors when athlete creation fails', async () => {
-    const error = new Error('Some error');
-    athleteCreatorMock.run.mockRejectedValueOnce(error);
+  it('should handle generic errors', async () => {
+    const genericError = new Error('Some error');
+    athleteCreatorMock.run.mockRejectedValueOnce(genericError);
 
-    await controller.run(req as Request, res as Response, next);
-    expect(errorHandlerMock.handleError).toHaveBeenCalledWith(
-      error,
-      req,
-      res,
-      next
-    );
-    expect(httpResponseMock.Created).not.toHaveBeenCalled();
+    await controller.run(c as Context);
+
+    expect(httpResponseMock.InternalServerError).toHaveBeenCalledWith(c, 'Error creating athlete');
   });
 });
- */
