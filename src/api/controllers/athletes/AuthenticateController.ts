@@ -21,7 +21,6 @@ export class AuthenticateController {
       }
 
       const token = await this.authService.login(athlete, password);
-      console.log({token});
       return this.httpResponse.Ok(c, { token });
     } catch (error) {
       return this.httpResponse.Unauthorized(c, { error: (error as Error).message });
