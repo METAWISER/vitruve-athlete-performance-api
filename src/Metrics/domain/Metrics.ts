@@ -8,7 +8,7 @@ export class Metrics {
     readonly id: MetricsId,
     readonly athleteId: AthleteId,
     readonly metricType: MetricType,
-    readonly value: Number,
+    readonly value: number,
     readonly unit: MetricUnit,
     readonly timestamp: Date
   ) {}
@@ -17,7 +17,7 @@ export class Metrics {
     id: string;
     athleteId: string;
     metricType: string;
-    value: Number;
+    value: number;
     unit: string;
     timestamp: Date;
   }): Metrics {
