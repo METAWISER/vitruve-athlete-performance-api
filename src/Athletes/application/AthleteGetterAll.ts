@@ -1,7 +1,7 @@
 import { Athlete } from "../domain/Athlete";
 import { AthleteRepository } from "../infrastructure/AthleteRepository";
 
-type AthleteWithoutPassword = Omit<ReturnType<Athlete['toPrimitives']>, 'password'>;
+type AthleteWithoutPassword = Omit<Athlete['toPrimitives'], 'password'>;
 export class AthleteGetterAll {
   constructor(private readonly athleteRepository: AthleteRepository) {}
 
@@ -9,7 +9,7 @@ export class AthleteGetterAll {
     const athletes = await this.athleteRepository.searchAll();
 
     return athletes.map((athlete) => {
-      const { password, ...athleteWithoutPassword } = athlete.toPrimitives();
+      const { password, ...athleteWithoutPassword } = athlete;
       return athleteWithoutPassword;
     });
   }
