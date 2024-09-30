@@ -38,7 +38,7 @@ export class AthleteRepository implements IAthleteRepository {
   }
 
   async update(uid: AthleteId, updateAthleteDto: AthleteUpdateDto): Promise<Athlete> {
-    const athlete = await this.findById(uid.value);
+    await this.findById(uid.value);
 
     if (updateAthleteDto.name) {
       updateAthleteDto.name = updateAthleteDto.name.toLowerCase();
