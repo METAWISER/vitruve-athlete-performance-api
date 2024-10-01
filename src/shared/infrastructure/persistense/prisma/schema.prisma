@@ -9,13 +9,13 @@ generator client {
 
 model Athlete {
   uid       String    @id @default(uuid())
-  name     String   
-  age      Int      
-  email    String    @unique 
-  password String   
-  team     String   
-  createdAt DateTime @default(now()) 
-  updatedAt DateTime @updatedAt 
+  name      String   
+  age       Int      
+  email     String    @unique 
+  password  String   
+  team      String   
+  createdAt DateTime  @default(now()) 
+  updatedAt DateTime  @updatedAt 
   performanceMetrics PerformanceMetric[]
   @@map("athletes")
 }
@@ -46,6 +46,9 @@ model PerformanceMetric {
   metricType String   
   value      Float    
   unit       String   
-  timestamp  DateTime @default(now()) 
+  startDate  DateTime?
+  endDate    DateTime?
+  createdAt  DateTime  @default(now()) 
+  updatedAt  DateTime  @updatedAt
   @@map("performanceMetrics")
 }
