@@ -11,6 +11,8 @@ interface MetricsAggregateOptions {
   metricType?: string;
 }
 
+type TMetricsPrimitives = ReturnType<Metrics['toPrimitives']>;
+
 export class MetricsRepository {
   constructor(private prisma: PrismaClient) {}
 
@@ -27,7 +29,7 @@ export class MetricsRepository {
       _count: { value: true },
     });
 
-    const metrics = await this.prisma.performanceMetric.findMany({
+    const metrics: TMetricsPrimitives[] = await this.prisma.performanceMetric.findMany({
       where: {
         athleteId: athleteId.value,
         ...(metricType && { metricType }),
