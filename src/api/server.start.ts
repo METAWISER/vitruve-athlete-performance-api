@@ -1,3 +1,4 @@
+import 'dotenv/config';
 import App from "./App";
 
 try {
@@ -6,6 +7,6 @@ try {
   process.exit(1);
 }
 
-process.on("uncaughtException", () => {
+/* process.on("uncaughtException", () => {
   process.exit(1);
-});
+}); */
