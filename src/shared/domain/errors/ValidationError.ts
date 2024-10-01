@@ -1,7 +1,10 @@
 export class ValidationError extends Error {
-  public readonly isValidationError: boolean = true;
+  isValidationError: boolean;
+
   constructor(message: string) {
     super(message);
     this.name = "ValidationError";
+    this.isValidationError = true;
+    Error.captureStackTrace(this, ValidationError);
   }
 }
