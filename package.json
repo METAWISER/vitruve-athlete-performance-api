@@ -2,7 +2,7 @@
   "name": "vitruve-athlete-performance-api",
   "version": "0.0.1",
   "description": "An API for managing athlete data and their performance metrics.",
-  "main": "server.start.js",
+  "main": "./dist/src/api/server.start.js",
   "scripts": {
     "test": "set NODE_ENV=test&& jest",
     "test:coverage": "jest --coverage",
