@@ -10,7 +10,10 @@ export class Metrics {
     readonly metricType: MetricType,
     readonly value: number,
     readonly unit: MetricUnit,
-    readonly timestamp: Date
+    readonly startDate?: Date | null,
+    readonly endDate?: Date | null,
+    readonly createdAt?: Date,
+    readonly updatedAt?: Date
   ) {}
 
   static fromPrimitives(plainData: {
@@ -19,7 +22,10 @@ export class Metrics {
     metricType: string;
     value: number;
     unit: string;
-    timestamp: Date;
+    startDate?: Date;
+    endDate?: Date;
+    createdAt?: Date;
+    updatedAt?: Date;
   }): Metrics {
     return new Metrics(
       new MetricsId(plainData.id),
@@ -27,7 +33,10 @@ export class Metrics {
       new MetricType(plainData.metricType),
       plainData.value,
       new MetricUnit(plainData.unit),
-      new Date(plainData.timestamp)
+      plainData.startDate ? new Date(plainData.startDate) : null,
+      plainData.endDate ? new Date(plainData.endDate) : null,
+      plainData.createdAt ? new Date(plainData.createdAt) : undefined,
+      plainData.updatedAt ? new Date(plainData.updatedAt) : undefined
     );
   }
 
@@ -38,7 +47,10 @@ export class Metrics {
       metricType: this.metricType.value,
       value: this.value,
       unit: this.unit.value,
-      timestamp: this.timestamp,
+      startDate: this.startDate,
+      endDate: this.endDate,
+      createdAt: this.createdAt,
+      updatedAt: this.updatedAt,
     };
   }
 }
