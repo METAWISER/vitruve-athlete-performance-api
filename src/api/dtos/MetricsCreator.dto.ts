@@ -1,9 +1,20 @@
-import { IsString, IsNotEmpty, IsNumber, IsPositive } from 'class-validator';
+import { IsString, IsNotEmpty, IsNumber, IsPositive, IsDate, IsOptional } from 'class-validator';
 
+export enum MetricTypeEnum {
+  SPEED = 'speed',
+  STRENGTH = 'strength',
+  STAMINA = 'stamina',
+}
+
+export enum MetricUnitEnum {
+  KG = 'kg',
+  METERS_PER_SECOND = 'meters/second',
+  SECONDS = 'seconds',
+}
 export class MetricsCreatorDto {
   @IsString()
   @IsNotEmpty()
-  metricType!: string;
+  metricType!: MetricTypeEnum;
 
   @IsNumber()
   @IsPositive()
@@ -11,6 +22,13 @@ export class MetricsCreatorDto {
 
   @IsString()
   @IsNotEmpty()
-  unit!: string;
+  unit!: MetricUnitEnum;
 
+  @IsOptional()
+  @IsDate()
+  startDate?: Date;
+
+  @IsOptional()
+  @IsDate()
+  endDate?: Date;
 }
