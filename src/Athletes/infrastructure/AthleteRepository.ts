@@ -5,6 +5,9 @@ import { DomainError } from "../../shared/domain/errors/DomainError";
 import { AthleteUpdateDto } from "../../api/dtos/AthleteUpdate.dto";
 import { PrismaClient } from '@prisma/client';
 
+
+type AthletePrimitives = ReturnType<Athlete['toPrimitives']>;
+
 export class AthleteRepository implements IAthleteRepository {
   
   constructor(private prisma: PrismaClient) {}
@@ -33,8 +36,15 @@ export class AthleteRepository implements IAthleteRepository {
   }
   
   async searchAll(): Promise<Athlete[]> {
-    const athletes = await this.prisma.athlete.findMany();
-    return athletes.map((athlete) => Athlete.fromPrimitives(athlete));
+    const athletes: AthletePrimitives[] = await this.prisma.athlete.findMany();
+    return athletes.map((athlete) => Athlete.fromPrimitives({
+      uid: athlete.uid,
+      name: athlete.name ?? "",
+      age: athlete.age ?? 0,
+      email: athlete.email ?? "",
+      password: athlete.password ?? "",
+      team: athlete.team ?? ""
+    }));
   }
 
   async update(uid: AthleteId, updateAthleteDto: AthleteUpdateDto): Promise<Athlete> {
