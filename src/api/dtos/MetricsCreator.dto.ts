@@ -1,4 +1,4 @@
-import { IsString, IsNotEmpty, IsNumber, IsPositive, IsDate, IsOptional } from 'class-validator';
+import { IsNotEmpty, IsNumber, IsPositive, IsDate, IsOptional, IsEnum, IsDateString } from 'class-validator';
 
 export enum MetricTypeEnum {
   SPEED = 'speed',
@@ -12,23 +12,29 @@ export enum MetricUnitEnum {
   SECONDS = 'seconds',
 }
 export class MetricsCreatorDto {
-  @IsString()
   @IsNotEmpty()
+  @IsEnum(MetricTypeEnum, {
+    message: 'metricType must be one of: speed, strength, stamina',
+  })
   metricType!: MetricTypeEnum;
 
   @IsNumber()
-  @IsPositive()
+  @IsNotEmpty()
+  @IsPositive({
+    message: 'value must be a positive number',
+  })
   value!: number;
 
-  @IsString()
-  @IsNotEmpty()
+  @IsEnum(MetricUnitEnum, {
+    message: 'unit must be one of: kg, meters/second, seconds',
+  })
   unit!: MetricUnitEnum;
 
   @IsOptional()
-  @IsDate()
+  @IsDateString({}, { message: 'startDate must be a valid ISO 8601 date' })
   startDate?: Date;
 
   @IsOptional()
-  @IsDate()
+  @IsDateString({}, { message: 'endDate must be a valid ISO 8601 date' })
   endDate?: Date;
 }
