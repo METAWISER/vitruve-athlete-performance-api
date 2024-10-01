@@ -7,9 +7,47 @@ interface MetricsFilterOptions {
   startDate?: Date;
   endDate?: Date;
 }
+interface MetricsAggregateOptions {
+  metricType?: string;
+}
 
 export class MetricsRepository {
   constructor(private prisma: PrismaClient) {}
+
+  async aggregateMetrics(athleteId: AthleteId, options: MetricsAggregateOptions) {
+    const { metricType } = options;
+    const result = await this.prisma.performanceMetric.aggregate({
+      where: {
+        athleteId: athleteId.value,
+        ...(metricType && { metricType }),
+      },
+      _avg: { value: true },
+      _min: { value: true },
+      _max: { value: true },
+      _count: { value: true },
+    });
+
+    const metrics = await this.prisma.performanceMetric.findMany({
+      where: {
+        athleteId: athleteId.value,
+        ...(metricType && { metricType }),
+      },
+    });
+
+    const stddev = this.calculateStandardDeviation(metrics.map(metric => metric.value));
+
+    return {
+      ...result,
+      stddev,
+    };
+  }
+
+  private calculateStandardDeviation(values: number[]): number {
+    const n = values.length;
+    const mean = values.reduce((acc, value) => acc + value, 0) / n;
+    const variance = values.reduce((acc, value) => acc + (value - mean) ** 2, 0) / n;
+    return Math.sqrt(variance);
+  }
 
   async create(metric: Metrics): Promise<void> {
     const metricPrimitives = metric.toPrimitives();
