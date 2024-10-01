@@ -6,6 +6,7 @@ import http from 'http';
 import pgConnect from "../shared/infrastructure/persistense/config";
 import logger from "../shared/infrastructure/logger/logger";
 import { registerRoutes } from "./routes";
+import { connectRedis } from "../shared/infrastructure/cache/redisClient";
 
 class Server {
   private readonly honoApp: Hono;
@@ -37,6 +38,7 @@ class Server {
   }
 
   public async start(): Promise<void> {
+    await connectRedis(); 
     serve({
       fetch: this.honoApp.fetch,
       port: Number(this.port),
