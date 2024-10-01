@@ -4,6 +4,8 @@ import HttpResponse from "../../../shared/infrastructure/response/HttpResponse";
 import IController from "../IController";
 import { MetricsCreatorDto } from "../../dtos/MetricsCreator.dto";
 import logger from "../../../shared/infrastructure/logger/logger";
+import { plainToInstance } from "class-transformer";
+import { validate } from "class-validator";
 import { AthleteId } from "../../../Athletes/domain/interfaces/AthleteId";
 import { DomainError, ValidationError, ConflictError, InternalServerError } from "../../../shared/domain/errors/index";
 
@@ -16,7 +18,13 @@ export class MetricsPostController implements IController {
   async run(c: Context): Promise<Response> {
     try {
       const athleteId = c.req.param("id");
-      const data: MetricsCreatorDto = await c.req.json();
+      const data = plainToInstance(MetricsCreatorDto, await c.req.json());
+
+      const errors = await validate(data);
+      if (errors.length > 0) {
+        const validationErrors = errors.map(err => Object.values(err.constraints!)).join(', ');
+        throw new ValidationError(validationErrors);
+      }
 
       await this.metricsCreator.run(new AthleteId(athleteId), data);
 
