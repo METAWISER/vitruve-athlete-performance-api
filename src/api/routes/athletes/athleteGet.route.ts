@@ -6,21 +6,25 @@ import { MetricsRepository } from "../../../Metrics/infrastructure/MetricsReposi
 import { AthleteMetricsGetter } from "../../../Metrics/application/MetricsGetter";
 import { AthleteGetService } from "../../../Athletes/application/AthleteGetter";
 import HttpResponse from "../../../shared/infrastructure/response/HttpResponse";
+import { validateJWT } from "../../middlewares/JwtMiddleware";
 
 export const register = (router: Hono): void => {
   const prisma = new PrismaClient();
   const athleteRepository = new AthleteRepository(prisma);
   const metricsRepository = new MetricsRepository(prisma);
   const athleteMetricsGetter = new AthleteMetricsGetter(metricsRepository);
-  const athleteGetService = new AthleteGetService(athleteRepository, athleteMetricsGetter);
+  const athleteGetService = new AthleteGetService(
+    athleteRepository,
+    athleteMetricsGetter
+  );
   const httpResponse = new HttpResponse();
 
   const athleteGetController = new AthleteGetController(
     athleteGetService,
-    httpResponse,
+    httpResponse
   );
 
-  router.get("/athletes/:id", async (c) => {
+  router.get("/athletes/:id", validateJWT, async (c) => {
     return await athleteGetController.run(c);
   });
 };

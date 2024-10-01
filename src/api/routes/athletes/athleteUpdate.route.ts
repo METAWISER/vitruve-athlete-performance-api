@@ -4,6 +4,7 @@ import { AthleteUpdateService } from '../../../Athletes/application/AthleteUpdat
 import { AthleteRepository } from "../../../Athletes/infrastructure/AthleteRepository";
 import { AthleteUpdateController } from "../../controllers/athletes/AthleteUpdateController";
 import HttpResponse from "../../../shared/infrastructure/response/HttpResponse";
+import { validateJWT } from '../../middlewares/JwtMiddleware';
 
 export const register = (router: Hono): void => {
   const athleteRepository = new AthleteRepository(new PrismaClient());
@@ -15,5 +16,5 @@ export const register = (router: Hono): void => {
     httpResponse
   );
 
-  router.patch('/athletes/:id', async (c) => await athleteUpdateController.run(c));
+  router.patch('/athletes/:id', validateJWT, async (c) => await athleteUpdateController.run(c));
 };

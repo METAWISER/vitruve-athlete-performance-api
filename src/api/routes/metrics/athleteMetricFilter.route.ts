@@ -4,6 +4,7 @@ import { MetricsRepository } from "../../../Metrics/infrastructure/MetricsReposi
 import { AthleteMetricsFilterService } from "../../../Metrics/application/AthleteMetricsFilter";
 import { AthleteMetricsFilterController } from "../../controllers/metrics/AthleteMetricsFilterController";
 import HttpResponse from "../../../shared/infrastructure/response/HttpResponse";
+import { validateJWT } from "../../middlewares/JwtMiddleware";
 
 export const register = (router: Hono): void => {
   const prisma = new PrismaClient();
@@ -20,6 +21,7 @@ export const register = (router: Hono): void => {
 
   router.get(
     "/athletes/:id/metrics",
+    validateJWT,
     async (c) => await athleteMetricsFilterController.run(c)
   );
 };

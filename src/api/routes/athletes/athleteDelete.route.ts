@@ -5,17 +5,28 @@ import { MetricsRepository } from "../../../Metrics/infrastructure/MetricsReposi
 import { AthleteDeleteService } from "../../../Athletes/application/AthleteDeleter";
 import { AthleteDeleteController } from "../../controllers/athletes/AthleteDeleteController";
 import HttpResponse from "../../../shared/infrastructure/response/HttpResponse";
+import { validateJWT } from "../../middlewares/JwtMiddleware";
 
 export const register = (router: Hono): void => {
   const prisma = new PrismaClient();
-  
+
   const athleteRepository = new AthleteRepository(prisma);
   const metricsRepository = new MetricsRepository(prisma);
-  
-  const athleteDeleteService = new AthleteDeleteService(athleteRepository, metricsRepository);
+
+  const athleteDeleteService = new AthleteDeleteService(
+    athleteRepository,
+    metricsRepository
+  );
   const httpResponse = new HttpResponse();
 
-  const athleteDeleteController = new AthleteDeleteController(athleteDeleteService, httpResponse);
+  const athleteDeleteController = new AthleteDeleteController(
+    athleteDeleteService,
+    httpResponse
+  );
 
-  router.delete("/athletes/:id", async (c) => await athleteDeleteController.run(c));
+  router.delete(
+    "/athletes/:id",
+    validateJWT,
+    async (c) => await athleteDeleteController.run(c)
+  );
 };
