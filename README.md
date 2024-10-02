@@ -64,10 +64,21 @@ There are two ways to run the application: using Docker or directly on your loca
 
 ### Option 1: Using Docker (Recommended)
 
+####From DockerHub
 1. Ensure that Docker and Docker Compose are installed on your machine.
 
-2. Run the application:
+2. Pull the Docker Image:
+```docker pull metawiser/vitruve-athlete-performance-api```
+
+3. Run the Docker Container:
+```docker run -d -p 3001:3001 metawiser/vitruve-athlete-performance-api```
+
+####From Repository
+- Run the application:
 ```docker-compose up --build```
+
+4. After starting the containers, you need to apply the migrations to the database to ensure it is synchronized with the schema defined in the code. Run the following command:
+```docker-compose exec app npx prisma migrate dev --schema=src/shared/infrastructure/persistense/prisma/schema.prisma```
 
 This will spin up PostgreSQL, Redis, and the API server in Docker containers.
 
