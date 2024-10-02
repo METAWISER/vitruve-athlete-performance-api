@@ -45,7 +45,10 @@ describe("AthleteGetService", () => {
         { value: "speed" } as any,
         50.5,
         { value: "kg" } as any,
-        new Date()
+        new Date(),  // startDate
+        undefined,   // endDate
+        new Date(),  // createdAt
+        undefined    // updatedAt
       ),
     ];
 
@@ -71,7 +74,10 @@ describe("AthleteGetService", () => {
           metricType: "speed",
           value: 50.5,
           unit: "kg",
-          timestamp: expect.any(Date),
+          startDate: expect.any(Date),
+          endDate: undefined, 
+          createdAt: expect.any(Date),
+          updatedAt: undefined,
         },
       ],
     });
