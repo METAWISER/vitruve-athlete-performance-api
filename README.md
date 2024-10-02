@@ -64,7 +64,7 @@ There are two ways to run the application: using Docker or directly on your loca
 
 ### Option 1: Using Docker (Recommended)
 
-####From DockerHub
+#### From DockerHub
 1. Ensure that Docker and Docker Compose are installed on your machine.
 
 2. Pull the Docker Image:
@@ -73,7 +73,7 @@ There are two ways to run the application: using Docker or directly on your loca
 3. Run the Docker Container:
 ```docker run -d -p 3001:3001 metawiser/vitruve-athlete-performance-api```
 
-####From Repository
+#### From Repository
 - Run the application:
 ```docker-compose up --build```
 
