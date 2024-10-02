@@ -11,6 +11,18 @@ interface MetricsAggregateOptions {
   metricType?: string;
 }
 
+type TPerformanceMetric = {
+  id: string;
+  athleteId: string;
+  metricType: string;
+  value: number;
+  unit: string;
+  startDate?: Date | null;
+  endDate?: Date | null;
+  createdAt: Date;
+  updatedAt: Date;
+};
+
 type TMetricsPrimitives = ReturnType<Metrics['toPrimitives']>;
 
 export class MetricsRepository {
@@ -73,7 +85,7 @@ export class MetricsRepository {
       where: { athleteId: athleteId.value },
     });
 
-    return metrics.map((metric) =>
+    return metrics.map((metric: TPerformanceMetric) =>
       Metrics.fromPrimitives({
         id: metric.id,
         athleteId: metric.athleteId,
