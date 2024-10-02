@@ -73,15 +73,15 @@ export class MetricsRepository {
       where: { athleteId: athleteId.value },
     });
 
-    return metrics.map((metric: any) =>
+    return metrics.map((metric) =>
       Metrics.fromPrimitives({
         id: metric.id,
         athleteId: metric.athleteId,
         metricType: metric.metricType,
         value: metric.value,
         unit: metric.unit,
-        startDate: metric.startDate ?? null,
-        endDate: metric.endDate ?? null,
+        startDate: metric.startDate ?? undefined,
+        endDate: metric.endDate ?? undefined,
         createdAt: metric.createdAt,
         updatedAt: metric.updatedAt,
       })
